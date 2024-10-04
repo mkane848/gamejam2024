@@ -1,14 +1,14 @@
 export interface Pet {
     id?: string;
     name: string;
-    trainer: string;
+    originalTrainer: string;
     status: Status;
     environment: Environment;
 }
 
 export class PetDefaultValues implements Pet {
     name: string = 'My Pet';
-    trainer: string = 'Your Name';
+    originalTrainer: string = 'Your Name';
     status: Status = new StatusDefaultValues();
     environment: Environment = new EnvironmentDefaultValues();
 }

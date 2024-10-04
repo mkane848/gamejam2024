@@ -1,7 +1,7 @@
 import { Box, Button, Grid2 as Grid, Paper, TextField, Typography } from "@mui/material";
 import { usePetStore } from "../../stores/petStore"
-import { useState } from "react";
-import { PetDefaultValues } from "../../models/Pet";
+import { useEffect, useState } from "react";
+import { Pet, PetDefaultValues } from "../../models/Pet";
 import { useUserStore } from "../../stores/userStore";
 
 
@@ -11,6 +11,7 @@ const CreatePetForm = () => {
   } = usePetStore();
 
   const {
+    userName,
     setUserName
   } = useUserStore();
 
@@ -19,10 +20,20 @@ const CreatePetForm = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+    let formattedPet: Pet = {
+      ...newPet,
+      originalTrainer: newTrainerName
+    }
     console.log(newPet);
-    setPet(newPet);
+    setPet(formattedPet);
     setUserName(newTrainerName);
   }
+
+  useEffect(() =>{
+    if(userName){
+      setNewTrainerName(userName);
+    }
+  }, []);
 
   return (
     <Box component="form" onSubmit={handleSubmit}>
